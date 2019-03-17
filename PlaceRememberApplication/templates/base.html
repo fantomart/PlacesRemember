@@ -1,0 +1,47 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    {% block head %}{% endblock %}
+
+</head>
+<body>
+    {% if user.is_authenticated %}
+
+        {% if not backends.associated %}
+            <p>Logged as {{ user.username }}</p>
+        {% endif %}
+
+        {% for ass in backends.associated %}
+          {% if ass.provider == 'facebook' %}
+
+              <img src="{{ass.extra_data.picture.data.url}}" alt="" width="50" height="50" style="border-radius: 50%">
+              {{ ass.extra_data.name }}
+
+            </div>
+              {% elif ass.provider == 'google-oauth2' %}
+
+                <img src="{{ass.extra_data.picture}}" alt="" width="50" height="50" style="border-radius: 50%">
+                {{ ass.extra_data.name }}
+
+          {% endif %}
+        {% endfor %}
+
+      <p><a  href="{% url 'logout' %}">Logout</a></p>
+    {% else %}
+      <a  href="{% url 'social:begin' 'google-oauth2' %}">
+        Login with Google
+      </a>
+    <hr>
+        <a  href="{% url 'social:begin' 'facebook' %}">
+        Login with Facebook
+      </a>
+
+    {% endif %}
+    {% block content %}{% endblock %}
+</body>
+</html>

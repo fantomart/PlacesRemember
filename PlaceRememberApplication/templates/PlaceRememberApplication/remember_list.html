@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Список воспоминаний{% endblock %}
+
+{% block content %}
+   <h1>Мои воспоминания</h1>
+    <p><a href="{% url 'remember-create' %}" role="button">Добавить воспоминание</a></p>
+        <div class="container">
+
+
+        <!-- Example row of columns -->
+            <div class="row">
+                {% for remember in object_list %}
+                    <div class="col-md-4">
+                        <p><a href="{% url 'remember-detail' remember.id %}">{{ remember.name }}</a></p>
+                        {% if remember.photo %}
+                            <img src="{{ MEDIA_URL }}{{ remember.photo }}" height="200">
+                        {% endif %}
+                        <p>{{ remember.description }}</p>
+                    </div>
+                        {% empty %}
+        <li>Воспоминания отсутствуют</li>
+                {% endfor %}
+                </div>
+
+
+
+ </div>
+
+{% endblock %}
