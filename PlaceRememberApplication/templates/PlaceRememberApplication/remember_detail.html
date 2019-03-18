@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
 
-
-
 {% block title %}{{ remember.name }}{% endblock %}
 
 {% block head %}
     <style>
         #map {
-            height: 50%;
-            width: 50%;
+            height: 400px;
+            width: 600px;
         }
 
         html, body {
@@ -20,18 +18,18 @@
 {% endblock %}
 
 {% block content %}
+    <a class="btn btn-primary float-right" href="{% url 'remember-edit' remember.id %}" role="button">Редактировать</a>
+    </p>
+
     <h1>Воспоминание: {{ remember.name }}</h1>
 
-    <a href="{% url 'remember-edit' remember.id %}" role="button">Редактировать</a></p>
-
-    <div id="map"></div>
-
     {% if remember.photo %}
-        <img src="{{ MEDIA_URL }}/{{ remember.photo }}" height="200">
+        <img src="{{ MEDIA_URL }}{{ remember.photo }}" height="200">
     {% endif %}
 
     <p>{{ remember.description }}</p>
 
+    <div id="map"></div>
     <script>
         // Initialize and add the map
         function initMap() {
@@ -61,5 +59,9 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap">
     </script>
+
+{% endblock %}
+
+{% block script %}
 
 {% endblock %}

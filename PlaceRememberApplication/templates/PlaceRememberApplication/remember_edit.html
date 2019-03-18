@@ -3,8 +3,8 @@
 {% block head %}
     <style>
         #map {
-            height: 50%;
-            width: 50%;
+            height: 400px;
+            width: 600px;
         }
 
         html, body {
@@ -22,7 +22,7 @@
         <h4>Добавление воспоминания</h4>
     {% endif %}
 
-    <div id="map"></div>
+
     <script>
         // Initialize and add the map
         function initMap() {
@@ -64,21 +64,21 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ remember_form.as_p }}
-
-         <p>
+        <div id="map"></div>
+        <p>
             <label for="lat">Широта:</label>
-            <input type="text" id = "lat" name="lat" readonly value={{ remember_form.initial.lat }}>
+            <input type="text" id="lat" name="lat" readonly value={{ remember_form.initial.lat }}>
         </p>
         <p>
             <label for="lng">Долгота:</label>
-            <input type="text" id = "lng" name="lng" readonly value={{ remember_form.initial.lng }}>
+            <input type="text" id="lng" name="lng" readonly value={{ remember_form.initial.lng }}>
         </p>
 
-         {% if remember_form.initial.operation == "edit" %}
-            <button type="submit">Обновить</button>
-         {% else %}
-            <button type="submit">Добавить</button>
-         {% endif %}
+        {% if remember_form.initial.operation == "edit" %}
+            <button class="btn btn-primary" type="submit">Обновить</button>
+        {% else %}
+            <button class="btn btn-primary" type="submit">Добавить</button>
+        {% endif %}
 
     </form>
 

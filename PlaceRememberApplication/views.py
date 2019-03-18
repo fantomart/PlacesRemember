@@ -14,7 +14,7 @@ def home(request):
 class RememberListView(generic.ListView):
 
     model = Remember
-    paginate_by = 10
+    paginate_by = 6
 
     def get(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
